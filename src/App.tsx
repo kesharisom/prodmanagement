@@ -1,9 +1,52 @@
-import { BookOpen, Target, Users, Award, GraduationCap, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Target, Users, Award, GraduationCap, Clock, LayoutDashboard } from 'lucide-react';
 import EnrollmentForm from './components/EnrollmentForm';
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
+  const [currentView, setCurrentView] = useState<'home' | 'admin'>('home');
+
+  if (currentView === 'admin') {
+    return (
+      <>
+        <nav className="bg-white shadow-sm border-b border-gray-100">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setCurrentView('home')}
+                className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                <GraduationCap className="w-5 h-5 mr-2" />
+                <span className="font-semibold">Back to Home</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+        <AdminDashboard />
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <nav className="bg-white/80 backdrop-blur-sm shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <GraduationCap className="w-6 h-6 text-blue-600 mr-2" />
+              <span className="font-bold text-gray-900">PM Mastery</span>
+            </div>
+            <button
+              onClick={() => setCurrentView('admin')}
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              <LayoutDashboard className="w-4 h-4 mr-2" />
+              Admin Dashboard
+            </button>
+          </div>
+        </div>
+      </nav>
+
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-6 shadow-lg">
